@@ -3,7 +3,7 @@
 #include <map>
 #include <cmath>
 
-double timestamp0 = 1529877600;
+double timestamp0 = 1530482400;
 
 double timestamp_min = 18E3, timestamp_max = 27E3;
 
