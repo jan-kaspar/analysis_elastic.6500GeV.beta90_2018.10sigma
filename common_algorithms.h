@@ -390,7 +390,7 @@ bool CalculateAcceptanceCorrections(double th_y_sign,
 
 //----------------------------------------------------------------------------------------------------
 
-bool SkipRun(unsigned int run)
+bool SkipRun(unsigned int /*run*/)
 {
 	//if (run < 318550 || run > 318551)
 	//if (run > 318549)
