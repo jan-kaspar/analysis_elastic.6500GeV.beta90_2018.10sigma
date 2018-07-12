@@ -1,0 +1,66 @@
+#!/bin/bash
+
+function GetOne()
+{
+	local input_dir="$1"
+	local selection="$2"
+	local output_dir="$3"
+
+	local output_file="$output_dir/input_files.h"
+
+	mkdir -p "$output_dir"
+
+	rm -rf "$output_file"
+
+	(
+		echo "#include <string>"
+		echo "#include <vector>"
+		echo ""
+		echo "std::vector<std::string> input_files;"
+		echo ""
+		echo "void InitInputFiles()"
+		echo "{"
+		echo "	input_files.clear();"
+		echo ""
+
+		for f in `eos ls $input_dir|grep ".root"|grep "$selection"`
+		do
+			echo "	input_files.push_back(\"root://eostotem.cern.ch/$input_dir/$f\");"
+		done
+
+		echo "}"
+	) > "$output_file"
+}
+
+#----------------------------------------------------------------------------------------------------
+
+function GetOneSet()
+{
+	local fill="$1"
+	local selection="$2"
+
+	GetOne "$base_dir/10sigma-TOTEM1-version1" "$selection" "../DS-$fill/TOTEM1"
+	GetOne "$base_dir/10sigma-ZeroBias-version1" "$selection" "../DS-$fill/ZeroBias"
+}
+
+#----------------------------------------------------------------------------------------------------
+
+base_dir="/eos/totem/user/j/jkaspar/reco/2018_90m/"
+
+GetOneSet "6877" "319097\|319098\|319099\|319100\|319101\|319103\|319104"
+
+GetOneSet "6879" "319124\|319125"
+
+GetOneSet "6881" "319159\|319160"
+
+GetOneSet "6882" "319173\|319174\|319175\|319176\|319177"
+
+GetOneSet "6884" "319189\|319190"
+
+GetOneSet "6885" "319222\|319223"
+
+GetOneSet "6890" "319254\|319255\|319256\|319260\|319262\|319263\|319264\|319265\|319266\|319267\|319268\|319270\|319271\|319272\|319273\|319274"
+
+GetOneSet "6891" "319300"
+
+GetOneSet "6892" "319310\|319311"
