@@ -6,15 +6,27 @@ string topDir = "../../";
 TH2_palette = Gradient(blue, heavygreen, yellow, red);
 
 string datasets[] = {
-	//"DS-6877/ZeroBias",
-	//"DS-6879/ZeroBias",
-	//"DS-6881/ZeroBias",
+	/*
+	"DS-6877/ZeroBias",
+	"DS-6879/ZeroBias",
+	"DS-6881/ZeroBias",
 	"DS-6882/ZeroBias",
-	//"DS-6884/ZeroBias",
-	//"DS-6885/ZeroBias",
-	//"DS-6890/ZeroBias",
-	//"DS-6891/ZeroBias",
-	//"DS-6892/ZeroBias",
+	"DS-6884/ZeroBias",
+	"DS-6885/ZeroBias",
+	"DS-6890/ZeroBias",
+	"DS-6891/ZeroBias",
+	"DS-6892/ZeroBias",
+	*/
+
+	"DS-6877/TOTEM1",
+	"DS-6879/TOTEM1",
+	"DS-6881/TOTEM1",
+	"DS-6882/TOTEM1",
+	"DS-6884/TOTEM1",
+	"DS-6885/TOTEM1",
+	"DS-6890/TOTEM1",
+	"DS-6891/TOTEM1",
+	"DS-6892/TOTEM1",
 };
 
 string dgns[] = {
@@ -37,7 +49,7 @@ real lim_x_high[] = { +200, -1, +1000, +1000, -1, -1, +200, +200 };
 real lim_y_low[] = { -200, +1, -0.8, -0.8, +1, +1, -1, -100 };
 real lim_y_high[] = { +200, -1, +0.8, +0.8, -1, -1, +1, +100 };
 
-real lim_q[] = { 250., 50, 10., 10., 1., 1., 2.5, 10. };
+real lim_q[] = { 100., 20, 10., 10., 1., 1., 0.1, 10. };
 
 //----------------------------------------------------------------------------------------------------
 
@@ -56,6 +68,8 @@ for (int dsi : datasets.keys)
 {
 	string dataset = datasets[dsi];
 
+	write("* " + dataset);
+
 	for (int dgi : dgns.keys)
 	{
 		string dgn = dgns[dgi];
@@ -71,31 +85,8 @@ for (int dsi : datasets.keys)
 			int cut = cuts[ci];
 			int idx = cut - 1;
 	
-			// ---------- before cuts ----------
-
-			NewPad(label_x[idx], label_y[idx]);
-			scale(Linear, Linear, Log);
-			string objC = format("elastic cuts/cut %i", cut) + format("/plot_before_cq%i", cut);
-			draw(scale(scale_x[idx], scale_y[idx]), RootGetObject(f, objC+"#0"), "p,d0,bar");
-			draw(scale(scale_x[idx], scale_y[idx]), RootGetObject(f, objC+"#1"));
-			draw(scale(scale_x[idx], scale_y[idx]), RootGetObject(f, objC+"#2"));
-			limits((lim_x_low[idx], lim_y_low[idx]), (lim_x_high[idx], lim_y_high[idx]), Crop);
-
-			// ---------- after cuts ----------
-			
-			/*
-			NewPad(label_x[idx], label_y[idx]);
-			scale(Linear, Linear, Log);
-			string objC = format("elastic cuts/cut %i", cut) + format("/plot_after_cq%i", cut);
-			draw(scale(scale_x[idx], scale_y[idx]), RootGetObject(f, objC+"#0"), "p,d0,bar");
-			draw(scale(scale_x[idx], scale_y[idx]), RootGetObject(f, objC+"#1"));
-			draw(scale(scale_x[idx], scale_y[idx]), RootGetObject(f, objC+"#2"));
-			limits((lim_x_low[idx], lim_y_low[idx]), (lim_x_high[idx], lim_y_high[idx]), Crop);
-			*/
-
 			// ---------- discriminator distribution ----------
 
-			/*
 			string obj_name_par = format("elastic cuts/cut %i", cut) + format("/g_cut_parameters", cut);
 			RootObject obj_par = RootGetObject(f, obj_name_par);
 			real ax[] = {0}, ay[] = {0};
@@ -123,7 +114,6 @@ for (int dsi : datasets.keys)
 			AddToLegend(format("<RMS = $%#.3f$", obj_h.rExec("GetRMS") * scale));
 			AddToLegend(format("<cut = $\pm%#.3f$", n_si * csi * scale));
 			AttachLegend();
-			*/
 		}
 	}
 }

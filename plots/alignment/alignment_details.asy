@@ -4,7 +4,7 @@ include "../run_info.asy";
 
 string topDir = "../../";
 
-string dataset = "DS-TOTEM1-347";
+string dataset = "DS-6877/TOTEM1";
 
 string units[] = { "L_2_F", "L_1_F", "R_1_F", "R_2_F" };
 string unit_labels[] = { "45-220-fr", "45-210-fr", "56-210-fr", "56-220-fr" };
@@ -17,7 +17,7 @@ drawGridDef = true;
 
 TGraph_errorBar = None;
 
-string period = "period 3";
+string period = "period 33";
 
 //----------------------------------------------------------------------------------------------------
 
@@ -50,8 +50,8 @@ for (int ui : units.keys)
 	draw(RootGetObject(topDir+dataset+"/alignment.root", period + "/unit "+units[ui]+"/vertical/y_hist|y_hist"), "d0,vl", blue);
 	draw(RootGetObject(topDir+dataset+"/alignment.root", period + "/unit "+units[ui]+"/vertical/y_hist|y_hist_range"), "d0,vl", red);
 
-	limits((-30, 1), (+30, 1e3), Crop);
-	//limits((-6, 1), (+6, 1e3), Crop);
+	limits((-30, 1), (+30, 5e3), Crop);
+	//limits((-10, 1), (+10, 5e3), Crop);
 	AttachLegend(unit_labels[ui], SE, SE);
 }
 
