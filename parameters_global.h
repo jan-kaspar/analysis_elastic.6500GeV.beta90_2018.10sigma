@@ -22,6 +22,22 @@ bool simulated_dataset = false;
 
 //----------------------------------------------------------------------------------------------------
 
+void ApplyZeroBiasSettings()
+{
+	anal.alignment_t0 = 0.;			// beginning of the first time-slice
+	anal.alignment_ts = 180.*60.;	// time-slice in s
+}
+
+//----------------------------------------------------------------------------------------------------
+
+void ApplyTOTEM1Settings()
+{
+	anal.alignment_t0 = 0.;			// beginning of the first time-slice
+	anal.alignment_ts = 15.*60.;	// time-slice in s
+}
+
+//----------------------------------------------------------------------------------------------------
+
 void Init_global()
 {
 	// environment settings
@@ -57,14 +73,14 @@ void Init_global()
 	anal.si_th_x_2arm_unc = 0.04E-6;
 
 	// alignment-determination settings
-	anal.alignment_t0 = 18172.;		// beginning of the first time-slice
-	anal.alignment_ts = 10.*60.;	// time-slice in s
+	anal.alignment_t0 = 0.;			// beginning of the first time-slice
+	anal.alignment_ts = 180.*60.;	// time-slice in s
 	
-	anal.alignmentYRanges["L_2_F"] = Analysis::AlignmentYRange(-18.0, -5.0, +5.0, +18.0);
-	anal.alignmentYRanges["L_1_F"] = Analysis::AlignmentYRange(-17.0, -4.5, +4.5, +17.0);
+	anal.alignmentYRanges["L_2_F"] = Analysis::AlignmentYRange(-20.0, -9.0, +9.0, +20.0);
+	anal.alignmentYRanges["L_1_F"] = Analysis::AlignmentYRange(-20.0, -8.5, +8.5, +20.0);
 
-	anal.alignmentYRanges["R_1_F"] = Analysis::AlignmentYRange(-18.0, -4.5, +4.5, +18.0);
-	anal.alignmentYRanges["R_2_F"] = Analysis::AlignmentYRange(-18.0, -5.0, +5.0, +18.0);
+	anal.alignmentYRanges["R_1_F"] = Analysis::AlignmentYRange(-20.0, -8.0, +8.0, +20.0);
+	anal.alignmentYRanges["R_2_F"] = Analysis::AlignmentYRange(-20.0, -9.0, +9.0, +20.0);
 
 	// correction settings
 	// TODO
@@ -103,10 +119,10 @@ void Init_global_45b_56t()
 	*/
 
 	// analysis settings
-	anal.cut1_a = 1.; anal.cut1_c = -149.4E-6; anal.cut1_si = 10E-6;
-	anal.cut2_a = 1.; anal.cut2_c = -1.4E-6; anal.cut2_si = 2.5E-6;
+	anal.cut1_a = 1.; anal.cut1_c = +2.8E-6; anal.cut1_si = 10E-6;
+	anal.cut2_a = 1.; anal.cut2_c = +0.9E-6; anal.cut2_si = 2.5E-6;
 
-	anal.cut7_a = -1250.; anal.cut7_c = -0.036; anal.cut7_si = 0.01;
+	anal.cut7_a = -1250.; anal.cut7_c = -0.033; anal.cut7_si = 0.01;
 
 	// unfolding settings
 	//unsmearing_file = "unfolding_cf_ni_45b_56t.root";
@@ -129,10 +145,10 @@ void Init_global_45t_56b()
 	anal.fc_G_h = FiducialCut(100E-6, 0E-6, 0., 0E-6, 0.);
 	*/
 
-	anal.cut1_a = 1.; anal.cut1_c = -157.6E-6; anal.cut1_si = 10E-6;
-	anal.cut2_a = 1.; anal.cut2_c = -1.6E-6; anal.cut2_si = 2.5E-6;
+	anal.cut1_a = 1.; anal.cut1_c = -7.6E-6; anal.cut1_si = 10E-6;
+	anal.cut2_a = 1.; anal.cut2_c = +1E-6; anal.cut2_si = 2.5E-6;
 
-	anal.cut7_a = -1250.; anal.cut7_c = -0.017; anal.cut7_si = 0.01;
+	anal.cut7_a = -1250.; anal.cut7_c = -0.004; anal.cut7_si = 0.01;
 
 	// unfolding settings
 	//unsmearing_file = "unfolding_cf_ni_45t_56b.root";
