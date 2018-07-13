@@ -21,21 +21,23 @@ pen s_pens[];
 streams.push("ZeroBias"); s_pens.push(blue);
 streams.push("TOTEM1"); s_pens.push(red+1pt);
 
+pen p_fit = heavygreen;
+
 string units[];
 string unit_labels[];
 real a_cens[], b_cens[], c_cens[];
 
-units.push("L_2_F"); unit_labels.push("45-220-fr"); a_cens.push(-1.1); b_cens.push(30); c_cens.push(270);
-units.push("L_1_F"); unit_labels.push("45-210-fr"); a_cens.push(-1.7); b_cens.push(30); c_cens.push(230);
+units.push("L_2_F"); unit_labels.push("45-220-fr"); a_cens.push(-1.1); b_cens.push(20); c_cens.push(350);
+units.push("L_1_F"); unit_labels.push("45-210-fr"); a_cens.push(-1.7); b_cens.push(30); c_cens.push(300);
 
-units.push("R_1_F"); unit_labels.push("56-210-fr"); a_cens.push(-1.); b_cens.push(-10); c_cens.push(+30);
-units.push("R_2_F"); unit_labels.push("56-220-fr"); a_cens.push(-1.7); b_cens.push(0); c_cens.push(+50);
+units.push("R_1_F"); unit_labels.push("56-210-fr"); a_cens.push(-1.); b_cens.push(-20); c_cens.push(-150);
+units.push("R_2_F"); unit_labels.push("56-220-fr"); a_cens.push(-1.7); b_cens.push(0); c_cens.push(-150);
 
 xSizeDef = 12cm;
 //xTicksDef = LeftTicks(Step=1, step=0.5);
 drawGridDef = true;
 
-bool draw_fits = false;
+bool draw_fits = true;
 
 TGraph_errorBar = None;
 
@@ -43,6 +45,20 @@ real time_min = 10.;
 real time_max = 140.;
 
 //----------------------------------------------------------------------------------------------------
+
+RootObject GetFitObject(string tag, string unit, string obj)
+{
+	//return RootGetObject(topDir + tag + "/alignment_fit.root", unit + "/" + obj);
+	return RootGetObject(topDir + "alignment/global_fit.root", unit + "/" + obj);
+}
+
+//----------------------------------------------------------------------------------------------------
+
+for (int ui : units.keys)
+	NewPadLabel(unit_labels[ui]);
+
+//----------------------------------------------------------------------------------------------------
+
 NewRow();
 
 for (int ui : units.keys)
@@ -64,16 +80,16 @@ for (int ui : units.keys)
 			if (draw_fits)
 			{
 				real unc = 1;
-				RootObject fit = RootGetObject(topDir+tag+"/alignment_fit.root", ""+units[ui]+"/a_fit");
-				draw(swToHours, fit, "l", red+1.5pt);
-				draw(shift(0, +unc)*swToHours, fit, "l", red+dashed);
-				draw(shift(0, -unc)*swToHours, fit, "l", red+dashed);
+				RootObject fit = GetFitObject(tag, units[ui], "a_fit");
+				draw(swToHours, fit, "l", p_fit+1.5pt);
+				draw(shift(0, +unc)*swToHours, fit, "l", p_fit+dashed);
+				draw(shift(0, -unc)*swToHours, fit, "l", p_fit+dashed);
 			}
 		}
 	}
 
 	limits((time_min, y_min), (time_max, y_max), Crop);
-	AttachLegend(unit_labels[ui], SE, SE);
+	//AttachLegend(unit_labels[ui], SE, SE);
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -97,16 +113,17 @@ for (int ui : units.keys)
 
 			if (draw_fits)
 			{
-				draw(swToHours, RootGetObject(topDir+tag+"/alignment_fit.root", ""+units[ui]+"/b_fit"), "l", red+1.5pt);
+				RootObject fit = GetFitObject(tag, units[ui], "b_fit");
 				real unc = 10;
-				draw(shift(0, +unc)*swToHours, RootGetObject(topDir+tag+"/alignment_fit.root", ""+units[ui]+"/b_fit"), "l", red+dashed);
-				draw(shift(0, -unc)*swToHours, RootGetObject(topDir+tag+"/alignment_fit.root", ""+units[ui]+"/b_fit"), "l", red+dashed);
+				draw(swToHours, fit, "l", p_fit+1.5pt);
+				draw(shift(0, +unc)*swToHours, fit, "l", p_fit+dashed);
+				draw(shift(0, -unc)*swToHours, fit, "l", p_fit+dashed);
 			}
 		}
 	}
 	
 	limits((time_min, y_min), (time_max, y_max), Crop);
-	AttachLegend(unit_labels[ui], SE, SE);
+	//AttachLegend(unit_labels[ui], SE, SE);
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -130,18 +147,19 @@ for (int ui : units.keys)
 
 			if (draw_fits)
 			{
-				draw(swToHours, RootGetObject(topDir+tag+"/alignment_fit.root", ""+units[ui]+"/c_fit"), "l", red+1.5pt);
+				RootObject fit = GetFitObject(tag, units[ui], "c_fit");
 				real unc = 100;
-				draw(shift(0, +unc)*swToHours, RootGetObject(topDir+tag+"/alignment_fit.root", ""+units[ui]+"/c_fit"), "l", red+dashed);
-				draw(shift(0, -unc)*swToHours, RootGetObject(topDir+tag+"/alignment_fit.root", ""+units[ui]+"/c_fit"), "l", red+dashed);
+				draw(swToHours, fit, "l", p_fit+1.5pt);
+				draw(shift(0, +unc)*swToHours, fit, "l", p_fit+dashed);
+				draw(shift(0, -unc)*swToHours, fit, "l", p_fit+dashed);
 			}
 		}
 	}
 	
 	limits((time_min, y_min), (time_max, y_max), Crop);
-	AttachLegend(unit_labels[ui], SE, SE);
+	//AttachLegend(unit_labels[ui], SE, SE);
 }
 
 //----------------------------------------------------------------------------------------------------
 
-GShipout();
+GShipout(hSkip=0mm, vSkip=0mm);
