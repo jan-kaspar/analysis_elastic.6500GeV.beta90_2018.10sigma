@@ -39,13 +39,13 @@ function GetOneSet()
 	local fill="$1"
 	local selection="$2"
 
-	GetOne "$base_dir/10sigma-TOTEM1-version1" "$selection" "../DS-$fill/TOTEM1"
-	GetOne "$base_dir/10sigma-ZeroBias-version1" "$selection" "../DS-$fill/ZeroBias"
+	GetOne "$base_dir/10sigma-TOTEM1-version2" "$selection" "../DS-$fill/TOTEM1"
+	GetOne "$base_dir/10sigma-ZeroBias-version2" "$selection" "../DS-$fill/ZeroBias"
 }
 
 #----------------------------------------------------------------------------------------------------
 
-base_dir="/eos/totem/user/j/jkaspar/reco/2018_90m/"
+base_dir="/eos/totem/user/j/jkaspar/reco/2018_90m"
 
 GetOneSet "6877" "319097\|319098\|319099\|319100\|319101\|319103\|319104"
 

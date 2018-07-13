@@ -7,5 +7,8 @@ void InitInputFiles()
 {
 	input_files.clear();
 
-	input_files.push_back("root://eostotem.cern.ch//eos/totem/user/j/jkaspar/reco/2018_90m//10sigma-ZeroBias-version1/run_319310.0_re_reco_ZeroBias.root");
+	input_files.push_back("root://eostotem.cern.ch//eos/totem/user/j/jkaspar/reco/2018_90m/10sigma-ZeroBias-version2/run_319310.0_re_reco_ZeroBias.root");
+	input_files.push_back("root://eostotem.cern.ch//eos/totem/user/j/jkaspar/reco/2018_90m/10sigma-ZeroBias-version2/run_319311.0_re_reco_ZeroBias.root");
+	input_files.push_back("root://eostotem.cern.ch//eos/totem/user/j/jkaspar/reco/2018_90m/10sigma-ZeroBias-version2/run_319311.1_re_reco_ZeroBias.root");
+	input_files.push_back("root://eostotem.cern.ch//eos/totem/user/j/jkaspar/reco/2018_90m/10sigma-ZeroBias-version2/run_319311.2_re_reco_ZeroBias.root");
 }
